@@ -32,7 +32,7 @@ class InitWio {
             'goog:chromeOptions': {
                 args: ['-start-maximized'],
                 prefs: {
-                    'download.default_directory': TEMP_DIR, 
+                    'download.default_directory': TEMP_DIR,
                     'download.prompt_for_download': false, // Desative a solicitação de download
                     'download.directory_upgrade': true, // Use o diretório de download definido sem solicitar confirmação
                     'plugins.always_open_pdf_externally': true, // Faça o download de PDFs automaticamente em vez de abri-los
@@ -43,10 +43,10 @@ class InitWio {
 
     async initBrowser() {
         exec(`mkdir ${TEMP_DIR}`)
-        
-        global.browser = await remote({
-            capabilities: this.firefoxCapabilities
-        })
+
+        global.browser = await remote({ capabilities: this.firefoxCapabilities })
+        await browser.maximizeWindow()
+
     }
 
     async closeBrowser() {
@@ -59,11 +59,10 @@ class InitWio {
     async start(jobData) {
         try {
             await this.initBrowser()
-            await browser.maximizeWindow()
             await nativate(jobData.uri)
 
-            const manager = new Worker()
-            const result = await manager.execute(jobData)
+            const worker = new Worker()
+            const result = await worker.execute(jobData)
             writeFileSync('./jobs/result.json', JSON.stringify(result, null, 2))
 
             await this.closeBrowser()
