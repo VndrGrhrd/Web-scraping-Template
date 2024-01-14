@@ -1,0 +1,11 @@
+{
+    "title":"Web scraping template",
+    "uri": "http://google.com",
+    "params":{
+        "name": "Name for search",
+        "personType": "type os federal document",
+        "federalDoc": "federal document",
+        "birthday": "16/12/1986",
+        "motherName": "Mother name"
+    }
+}
