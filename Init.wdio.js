@@ -6,7 +6,7 @@ const { remote } = require('webdriverio')
 const { exec } = require('node:child_process')
 const { nativate } = require('./common/utils.js')
 const TEMP_DIR = path.join(os.tmpdir(), 'webScraping')
-const LawsuitVoucher = require('./launcher/lawsuitVoucher.js')
+const Worker = require('./launcher/worker.js')
 const { writeFileSync } = require('node:fs')
 
 class InitWio {
@@ -61,7 +61,7 @@ class InitWio {
             await this.initBrowser()
             await nativate(jobData.uri)
 
-            const manager = new LawsuitVoucher()
+            const manager = new Worker()
             const result = await manager.execute(jobData)
             writeFileSync('./jobs/result.json', JSON.stringify(result, null, 2))
 

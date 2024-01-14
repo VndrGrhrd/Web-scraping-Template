@@ -2,7 +2,7 @@
 const getDocument = require('./commands/getDocument')
 const IssueVoucher = require('./commands/issueVoucher')
 
-class LowsuitVoucher {
+class Worker {
     async execute(jobData) {
         const searchResult = await IssueVoucher.execute(jobData.params)
         const analysisResult = await getDocument.execute(searchResult)
@@ -28,4 +28,4 @@ class LowsuitVoucher {
         }
     }
 }
-module.exports = LowsuitVoucher
+module.exports = Worker
