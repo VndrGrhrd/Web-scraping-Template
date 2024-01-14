@@ -59,6 +59,7 @@ class InitWio {
     async start(jobData) {
         try {
             await this.initBrowser()
+            browser.maximizeWindow()
             await nativate(jobData.uri)
 
             const manager = new Worker()
